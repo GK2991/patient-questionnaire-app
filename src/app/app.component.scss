@@ -1,0 +1,30 @@
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+table{
+  width: 100%;
+}
+.searchContainer{
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+.innerWrap{
+  display: flex;
+}
+.flexItems{
+  margin: 0 10px;
+}
+.flexItems input{
+  height: 28px;
+}
+.searchBtn{
+  background: transparent;
+  width: 120px;
+  height: 32px;
+}

@@ -1,0 +1,19 @@
+.flexCls{
+    display: flex;
+    // justify-content: space-around;
+    padding: 5px;
+}
+.labelCls{
+    width: 60%;
+}
+.eleCls{
+    width: 25%;
+}
+.btnCont{
+    position: relative;
+    left: 37%;
+}
+.btnCont button{
+    width: 150px;
+    height: 32px;
+}

@@ -1,0 +1,100 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "f201",
+  "url": "http://hl7.org/fhir/Questionnaire/f201",
+  "status": "active",
+  "subjectType": [
+    "Patient"
+  ],
+  "date": "2010",
+  "item": [
+    {
+      "linkId": "1",
+      "id": "allergies",
+      "text": "Do you have allergies?",
+      "type": "boolean",
+      "eleType": "radio",
+      "value": [
+        {"label": "Yes", "value": true},
+        {"label": "No", "value": false}
+      ],
+      "required": true
+    },
+    {
+      "linkId": "2",
+      "text": "General questions",
+      "id": "generalQuestions",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "2.1",
+          "id": "gender",
+          "text": "What is your gender?",
+          "type": "string",
+          "eleType": "select",
+          "value": ["Male", "Female"],
+          "required": true
+        },
+        {
+          "linkId": "2.2",
+          "id": "dob",
+          "text": "What is your date of birth?",
+          "type": "date",
+          "eleType": "date",
+          "value": "",
+          "required": true
+        },
+        {
+          "linkId": "2.3",
+          "id": "country",
+          "text": "What is your country of birth?",
+          "type": "string",
+          "eleType": "select",
+          "value": ["Canada", "U.S.A", "India", "Netherlands", "Mexico", "Australia", "Germany"],
+          "required": true
+        },
+        {
+          "linkId": "2.4",
+          "id": "maritalStatus",
+          "text": "What is your marital status?",
+          "type": "string",
+          "eleType": "select",
+          "value": ["Married", "Not married"],
+          "required": true
+        }
+      ]
+    },
+    {
+      "linkId": "3",
+      "text": "Intoxications",
+      "id": "Intoxications",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "3.1",
+          "id": "smoker",
+          "text": "Do you smoke?",
+          "type": "boolean",
+          "eleType": "radio",
+          "value": [
+            {"label": "Yes", "value": true},
+            {"label": "No", "value": false}
+          ],
+          "required": true
+        },
+        {
+          "linkId": "3.2",
+          "id": "alcoholic",
+          "text": "Do you drink alchohol?",
+          "type": "boolean",
+          "eleType": "radio",
+          "value": [
+            {"label": "Yes", "value": true},
+            {"label": "No", "value": false}
+          ],
+          "required": true
+        }
+      ]
+    }
+  ]
+}
