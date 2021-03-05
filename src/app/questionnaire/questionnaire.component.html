@@ -1,118 +1,147 @@
-<div>
+<div class="formContainer">
     <h1>Questionnaire Form</h1>
-</div>
-<div>
-    <form [formGroup]="questionnaireForm">
-        <div>
-            <div *ngFor="let control of dynamicFormArr">
-                <ng-container *ngIf="control.type == 'group'" >
-                    <div>
-                        <p>{{control.linkId + '.' + control.text}}</p>
-                    </div>
-                    <div *ngFor="let ctrl of control.item; let i=index" [formArrayName]="control.id">
-                        <div [ngSwitch]="ctrl.eleType">
-                            <div *ngSwitchCase="'radio'" class="flexCls">
-                                <div class="labelCls">
-                                    <label>{{ctrl.linkId + '.' + ctrl.text}}</label>
-                                </div>
-                                <div class="eleCls">
-                                    <label *ngFor="let opt of ctrl.value">
-                                        <input type="radio" [name]="i" [formControlName]="i" [value]="opt.value">
-                                        {{opt.label}}
-                                    </label>
-                                    <div *ngIf="questionnaireForm.get(control.id)['controls'][i].dirty || questionnaireForm.get(control.id)['controls'][i].touched">
-                                        <small *ngIf="!questionnaireForm.get(control.id)['controls'][i].valid">
-                                            Required!! Please answer.
-                                        </small>
+    <div class="form">
+        <form [formGroup]="questionnaireForm" (ngSubmit)="onSubmit()">
+            <ng-container *ngFor="let control of dynamicFormArr">
+                <ng-container *ngIf="control.type == 'group'">
+                    <div class="formGroupWrapper">
+                        <p>{{control.linkId + '. ' + control.text}}</p>
+                        <ng-container *ngFor="let ctrl of control.item; let i=index" [formArrayName]="control.id">
+                            <ng-container [ngSwitch]="ctrl.eleType">
+                                <ng-container *ngSwitchCase="'radio'">
+                                    <div class="formGroup">
+                                        <p class="ques">{{ctrl.linkId + ' ' + ctrl.text}}</p>
+                                        <div class="radioOptions">
+                                            <div *ngFor="let opt of ctrl.value">
+                                                <input type="radio" [name]="i" [formControlName]="i" [value]="opt.value">
+                                                <label>{{opt.label}}</label>
+                                            </div>
+                                            <span class="errClss" *ngIf="submitted && questionnaireForm.get(control.id)['controls'][i].errors">
+                                                <small *ngIf="questionnaireForm.get(control.id)['controls'][i].errors.required">
+                                                    Required!! Please answer.
+                                                </small>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div *ngSwitchCase="'date'" class="flexCls">
-                                <div class="labelCls">
-                                    <label>{{ctrl.linkId + '.' + ctrl.text}}</label>
-                                </div>
-                                <div class="eleCls">
-                                    <input type="date" [formControlName]="i" max="9999-12-31">
-                                    <div *ngIf="questionnaireForm.get(control.id)['controls'][i].dirty || questionnaireForm.get(control.id)['controls'][i].touched">
-                                        <small *ngIf="!questionnaireForm.get(control.id)['controls'][i].valid">
-                                            Required!! Please answer.
-                                        </small>
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'date'">
+                                    <div class="formGroup">
+                                        <label class="ques">{{ctrl.linkId + ' ' + ctrl.text}}</label>
+                                        <div class="formControlWrapper">
+                                            <input type="date" [formControlName]="i" max="9999-12-31">
+                                            <span class="errClss" *ngIf="submitted && questionnaireForm.get(control.id)['controls'][i].errors">
+                                                <small *ngIf="questionnaireForm.get(control.id)['controls'][i].errors.required">
+                                                    Required!! Please answer.
+                                                </small>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div *ngSwitchCase="'select'" class="flexCls">
-                                <div class="labelCls">
-                                    <label>{{ctrl.linkId + '.' + ctrl.text}}</label>
-                                </div>
-                                <div class="eleCls">
-                                    <select [formControlName]="i">
-                                        <option value="-1">Select</option>
-                                        <option *ngFor="let opt of ctrl.value" [value]="opt">{{opt}}</option>
-                                    </select>
-                                    <div *ngIf="questionnaireForm.get(control.id)['controls'][i].dirty || questionnaireForm.get(control.id)['controls'][i].touched">
-                                        <small *ngIf="!questionnaireForm.get(control.id)['controls'][i].valid">
-                                            Required!! Please answer.
-                                        </small>
+                                    
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'select'">
+                                    <div class="formGroup">
+                                        <label class="ques">{{ctrl.linkId + ' ' + ctrl.text}}</label>
+                                        <div class="formControlWrapper">
+                                            <select [formControlName]="i">
+                                                <option value="-1">Select</option>
+                                                <option *ngFor="let opt of ctrl.value" [value]="opt">{{opt}}</option>
+                                            </select>
+                                            <span class="errClss" *ngIf="submitted && questionnaireForm.get(control.id)['controls'][i].errors">
+                                                <small *ngIf="questionnaireForm.get(control.id)['controls'][i].errors.required">
+                                                    Required!! Please answer.
+                                                </small>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                   
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
                     </div>
                 </ng-container>
                 <ng-container *ngIf="control.type !== 'group'" >
-                    <div [ngSwitch]="control.eleType">
-                        <div *ngSwitchCase="'radio'" class="flexCls">
-                            <div class="labelCls">
-                                <label>{{control.linkId + '.' + control.text}}</label>
-                            </div>
-                            <div class="eleCls">
-                                <label *ngFor="let opt of control.value">
-                                    <input type="radio" [name]="control.id" [formControlName]="control.id" [value]="opt.value">
-                                    {{opt.label}}
-                                </label>
-                                <div *ngIf="questionnaireForm.get(control.id).dirty || questionnaireForm.get(control.id).touched">
-                                    <small *ngIf="!questionnaireForm.get(control.id).valid">
-                                        Required!! Please answer.
-                                    </small>
+                    <ng-container [ngSwitch]="control.eleType">
+                        <ng-container *ngSwitchCase="'radio'">
+                            <div class="formGroup">
+                                <p class="ques">{{control.linkId + '. ' + control.text}}</p>
+                                <div class="radioOptions">
+                                    <div *ngFor="let opt of control.value" >
+                                        <input type="radio" [name]="control.id" [formControlName]="control.id" [value]="opt.value">
+                                        <label>{{opt.label}}</label>
+                                    </div>
+                                    <span class="errClss" *ngIf="submitted && questionnaireForm.get(control.id).errors">
+                                        <small *ngIf="questionnaireForm.get(control.id).errors.required">
+                                            Required!! Please answer.
+                                        </small>
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                        <div *ngSwitchCase="'date'" class="flexCls">
-                            <div class="labelCls">
-                                <label>{{control.linkId + '.' + control.text}}</label>
-                            </div>
-                            <div class="eleCls">
-                                <input type="date" [formControlName]="control.id" max="9999-12-31">
-                                <div *ngIf="questionnaireForm.get(control.id).dirty || questionnaireForm.get(control.id).touched">
-                                    <small *ngIf="!questionnaireForm.get(control.id).valid">
-                                        Required!! Please answer.
-                                    </small>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'date'">
+                            <div class="formGroup">
+                                <label class="ques">{{control.linkId + '. ' + control.text}}</label>
+                                <div class="formControlWrapper">
+                                    <input type="date" [formControlName]="control.id" max="9999-12-31">
+                                    <span class="errClss" *ngIf="submitted && questionnaireForm.get(control.id).errors">
+                                        <small *ngIf="questionnaireForm.get(control.id).errors.required">
+                                            Required!! Please answer.
+                                        </small>
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                        <div *ngSwitchCase="'select'" class="flexCls">
-                            <div class="labelCls">
-                                <label>{{control.linkId + '.' + control.text}}</label>
-                            </div>
-                            <div class="eleCls">
-                                <select [formControlName]="control.id">
-                                    <option value="-1">Select</option>
-                                    <option *ngFor="let opt of control.value" [value]="opt">{{opt}}</option>
-                                </select>
-                                <div *ngIf="questionnaireForm.get(control.id).dirty || questionnaireForm.get(control.id).touched">
-                                    <small *ngIf="!questionnaireForm.get(control.id).valid">
-                                        Required!! Please answer.
-                                    </small>
+                            
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'select'">
+                            <div class="formGroup">
+                                <label class="ques">{{control.linkId + '. ' + control.text}}</label>
+                                <div class="formControlWrapper">
+                                    <select [formControlName]="control.id">
+                                        <option value="-1">Select</option>
+                                        <option *ngFor="let opt of control.value" [value]="opt">{{opt}}</option>
+                                    </select>
+                                    <span class="errClss" *ngIf="submitted && questionnaireForm.get(control.id).errors">
+                                        <small *ngIf="questionnaireForm.get(control.id).errors.required">
+                                            Required!! Please answer.
+                                        </small>
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            
+                        </ng-container>
+                    </ng-container>
                 </ng-container>
+            </ng-container>
+            <div class="btnCont">
+                <button type="Submit">Submit</button>
             </div>
-        </div>
-        <div class="btnCont">
-            <button (click)="generateFormResponse()" type="Submit">Submit</button>
-        </div>
-    </form>
-    <p><b>Questionnaire Response:</b> {{questionnaireResponse | json}}</p>
+        </form>
+    </div>
+</div>
+
+<div class="formRespCont">
+    <h1>Questionnaire Response</h1>
+    <div *ngFor="let item of questionnaireResponse.item">
+        <ng-container *ngFor="let ans of item.answer; let i = index;">
+            <div class="wrapper">
+                <div class="mainQues" *ngIf="i == 0">
+                    <p>{{item.linkId + '. ' + item.text}}</p>
+                </div>
+                <div class="mainQuesAns"  *ngIf="!ans.item">
+                    <p *ngIf="ans.hasOwnProperty('valueBoolean')">{{ans.valueBoolean ? 'Yes' : 'No'}}</p>
+                    <p *ngIf="ans.hasOwnProperty('valueString')">{{ans.valueString}}</p>
+                    <p *ngIf="ans.hasOwnProperty('valueDate')">{{ans.valueDate}}</p>
+                </div>
+            </div>
+            <div *ngIf="ans.item" class="subQuesCont">
+                <div class="subQues">
+                    <p>{{ans.item.linkId + ' ' + ans.item.text}}</p>
+                </div>
+                <div class="subQuesAns">
+                    <p *ngIf="ans.item.answer[0].hasOwnProperty('valueBoolean')">{{ans.item.answer[0].valueBoolean ? 'Yes' : 'No'}}</p>
+                    <p *ngIf="ans.item.answer[0].hasOwnProperty('valueString')">{{ans.item.answer[0].valueString}}</p>
+                    <p *ngIf="ans.item.answer[0].hasOwnProperty('valueDate')">{{ans.item.answer[0].valueDate}}</p>
+                </div>
+            </div>
+        </ng-container>
+    </div>
 </div>

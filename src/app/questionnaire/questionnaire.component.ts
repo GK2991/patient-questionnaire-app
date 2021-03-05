@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@ang
 export class QuestionnaireComponent implements OnInit {
   questionnaireForm: FormGroup;
   dynamicFormArr: any;
+  submitted = false;
   questionnaireResponse = {
     resourceType : 'QuestionnaireResponse',
     identifier : {},
@@ -57,7 +58,12 @@ export class QuestionnaireComponent implements OnInit {
     return value.required ? new FormControl('', [Validators.required]) : new FormControl('');
   }
 
-  generateFormResponse() {
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.questionnaireForm.invalid) {
+        return;
+    }
     this.questionnaireResponse.item = [];
     for (const data of this.dynamicFormArr) {
       const items  = {linkId : '', definition : '', text : '', answer : []};

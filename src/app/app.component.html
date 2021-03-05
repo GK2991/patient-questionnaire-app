@@ -1,44 +1,46 @@
-<h1>Patients List</h1>
-<form *ngIf="patientsForm" [formGroup]="patientsForm">
-    <div class="searchContainer">
-        <div class="innerWrap">
-            <div class="flexItems">
-                <label for="PatientName">Name: </label>
-                <input type="text" id="PatientName" name="PatientName" formControlName="patientName">
+<div>
+    <h1>Patients List</h1>
+    <form *ngIf="patientsForm" [formGroup]="patientsForm">
+        <div class="searchContainer">
+            <div class="innerWrap">
+                <div class="flexItems">
+                    <label for="PatientName">Name: </label>
+                    <input type="text" id="PatientName" name="PatientName" formControlName="patientName">
+                </div>
+                <div class="flexItems">
+                    <label for="birthDate">Date: </label>
+                    <input type="date" id="birthDate" name="birthDate" formControlName="birthDate" max="9999-12-31">
+                </div>
             </div>
-            <div class="flexItems">
-                <label for="birthDate">Date: </label>
-                <input type="date" id="birthDate" name="birthDate" formControlName="birthDate" max="9999-12-31">
-            </div>
+            <button type="submit" class="searchBtn" (click)="searchByNameAndDate()" [disabled]="disableSearch">Search</button>
         </div>
-        <button type="submit" class="searchBtn" (click)="searchByNameAndDate()" [disabled]="disableSearch">Search</button>
-    </div>
-    <p *ngIf="patientsForm.get('patientName').invalid">Invalid! Only Alpha-Numeric characters allowed.</p>
-    <p *ngIf="patientsForm.get('birthDate').invalid">Invalid Date Format!</p>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Gender</th>
-                <th>DOB</th>
-                <th>Resource Type</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let patient of patientsForm.get('details')['controls']">
-                <td>{{patient.get('id').value}}</td>
-                <td>{{patient.get('firstName').value}}</td>
-                <td>{{patient.get('lastName').value}}</td>
-                <td>{{patient.get('gender').value}}</td>
-                <td>{{patient.get('dob').value}}</td>
-                <td>{{patient.get('resourceType').value}}</td>
-            </tr>
-        </tbody>
-    </table>
-</form>
-<p><b>Response Time: {{responseTime | date : 'h:mm:ss a zzzz'}}</b></p>
+        <p *ngIf="patientsForm.get('patientName').invalid">Invalid! Only Alpha-Numeric characters allowed.</p>
+        <p *ngIf="patientsForm.get('birthDate').invalid">Invalid Date Format!</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Gender</th>
+                    <th>DOB</th>
+                    <th>Resource Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let patient of patientsForm.get('details')['controls']">
+                    <td>{{patient.get('id').value}}</td>
+                    <td>{{patient.get('firstName').value}}</td>
+                    <td>{{patient.get('lastName').value}}</td>
+                    <td>{{patient.get('gender').value}}</td>
+                    <td>{{patient.get('dob').value}}</td>
+                    <td>{{patient.get('resourceType').value}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <p class="resspTime"><b>Response Time: {{responseTime | date : 'h:mm:ss a zzzz'}}</b></p>
+</div> 
 
 <app-questionnaire></app-questionnaire>
 

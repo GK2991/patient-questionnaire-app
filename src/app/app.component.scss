@@ -1,30 +1,42 @@
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-th, td {
-  padding: 5px;
-  text-align: left;
-}
 table{
   width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 5px;
+    text-align: left;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
 }
+
 .searchContainer{
   display: flex;
   justify-content: flex-end;
   padding: 10px;
+  align-items: flex-end;
+
+  .innerWrap{
+    display: flex;
+  }
+  .flexItems{
+    margin: 0 10px;
+
+    input{
+      height: 28px;
+    }
+  }
+  .searchBtn{
+    background: transparent;
+    width: 120px;
+    height: 32px;
+  }
 }
-.innerWrap{
-  display: flex;
-}
-.flexItems{
-  margin: 0 10px;
-}
-.flexItems input{
-  height: 28px;
-}
-.searchBtn{
-  background: transparent;
-  width: 120px;
-  height: 32px;
+
+.resspTime{
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 30px;
 }

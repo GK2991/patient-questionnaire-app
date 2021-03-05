@@ -1,19 +1,108 @@
-.flexCls{
-    display: flex;
-    // justify-content: space-around;
-    padding: 5px;
+.formContainer {
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin: 0 auto 30px auto;
+
+    .formGroup{
+        display: flex;
+        margin-bottom: 5px;
+
+        .ques{
+            flex: 1;
+        }
+        .formControlWrapper{
+            flex: 2;
+        }
+        input[type='date'], select {
+            padding: 12px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            // flex: 2;
+            width: 100%;
+        }
+    }
+    .formGroupWrapper {
+        .ques{
+            padding-left: 15px;
+        }
+    }
+    .radioOptions{
+        flex: 2;
+        display: flex;
+
+        div{
+            margin-right: 20px;
+        }
+    }
 }
-.labelCls{
-    width: 60%;
-}
-.eleCls{
-    width: 25%;
+.formRespCont {
+    background-color: #f2f2f2;
+    padding: 20px;
+
+    .wrapper{
+        display: flex;
+
+        .mainQues{
+            flex: 2;
+        }
+
+        .mainQuesAns{
+            flex: 3;
+        }
+    }
+    
+    .subQuesCont {
+        display: flex;
+
+        .subQues{
+            flex: 2;
+        }
+
+        .subQuesAns{
+            flex: 3;
+        }
+    }
 }
 .btnCont{
-    position: relative;
-    left: 37%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    button{
+        width: 150px;
+        padding: 10px;
+        background: #fff;
+        border-radius: 5px;
+    }
 }
-.btnCont button{
-    width: 150px;
-    height: 32px;
+.errClss{
+    color: red;
+}
+
+@media(max-width: 600px) {
+    .formContainer {
+        .formGroup{
+            flex-direction: column;
+
+            input[type='date'], select {
+                margin: 10px 10px 10px 16px;
+                width: 95%;
+            }
+            .radioOptions{
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .formRespCont {
+        .wrapper, .subQuesCont{
+            flex-direction: column;
+        }
+    }
+
+    .formControlWrapper{
+        .errClss {
+            margin-left: 4%;
+        }
+    }
 }
